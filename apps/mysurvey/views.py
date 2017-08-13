@@ -12,25 +12,32 @@ def process(request):
     if request.method == "POST":
         print "post it is"
         request.session['fullform'] = request.POST
-        try:
+        
+        # try:
+        #     request.session['count'] += 1
+        # except:
+        #     request.session['count'] = 1
+        # I think the if statement below is better than the try above
+
+        if 'count' in request.session:
             request.session['count'] += 1
-        except:
+        else:
             request.session['count'] = 1
         print request.session['fullform']
         print request.session['fullform']['yourname']
         print request.POST
         
         messages.success(request, 'Thanks for submitting this form! You have subitted this form ' + str(request.session['count']) + ' times now.')
-        return redirect('/result/')
+        return redirect('/result')
 
 
 def result(request):
     return render(request, 'mysurvey/result.html')
 
 
-def goback(request):
+# def goback(request):
 
-    return redirect('/')
+#     return redirect('/')
 
 def reset(request):
     try:
